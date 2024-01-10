@@ -2,13 +2,17 @@ import { Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 import Player from '../pages/Player';
+import InputPlayerNumber from './InputPlayerNumber';
 
 //make a react component which takes in a prop called playerID
 function Main(props) {
   return (
     <div className='Main'>
+      <div className='InputPlayerNumber'>
+        <InputPlayerNumber />
+      </div>
       <Routes>
-        <Route path='/' element={<Player />} />
+        <Route path='/player/:id' element={<Player playerID={'117533'} />} />
       </Routes>
     </div>
   );
