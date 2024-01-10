@@ -18,10 +18,15 @@ function InputPlayerNumber() {
 
   return (
     <div className='InputPlayerNumber'>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>
           Player Number:
-          <input type='text' name='playerNumber' />
+          <input
+            type='text'
+            name='playerNumber'
+            value={playerNumber}
+            onChange={handleChange}
+          />
         </label>
         <input type='submit' value='Submit' />
       </form>
