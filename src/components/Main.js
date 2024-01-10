@@ -4,15 +4,36 @@ import { useState, useEffect } from 'react';
 import Player from '../pages/Player';
 import InputPlayerNumber from './InputPlayerNumber';
 
-//make a react component which takes in a prop called playerID
 function Main(props) {
+  const [playerID, setPlayerID] = useState('');
+  const [tournamentsPlayed, setTournamentsPlayed] = useState([]);
+
+  const getTournamentsPlayed = (playerID) => {
+    try {
+      fetch(`http://localhost:4000/player/${playerID}`)
+        .then((res) => res.json())
+        .then((data) => setTournamentsPlayed(data));
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  useEffect(() => {
+    getTournamentsPlayed(playerID);
+  }, [playerID]);
+
   return (
     <div className='Main'>
       <div className='InputPlayerNumber'>
-        <InputPlayerNumber />
+        <InputPlayerNumber setPlayerID={setPlayerID} playerID={playerID} />
       </div>
       <Routes>
-        <Route path='/player/:id' element={<Player playerID={'117533'} />} />
+        <Route
+          path='/player/:id'
+          element={
+            <Player playerID={playerID} tournamentsPlayed={tournamentsPlayed} />
+          }
+        />
       </Routes>
     </div>
   );
