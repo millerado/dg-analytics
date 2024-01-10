@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import Main from './components/Main';
-import InputPlayerNumber from './components/InputPlayerNumber';
 
 function App() {
   const [message, setMessage] = useState('Nothing yet...');
@@ -18,9 +17,6 @@ function App() {
         <h1>Hello World</h1>
         <h2>{message}</h2>
       </header>
-      <div className='InputPlayerNumber'>
-        <InputPlayerNumber />
-      </div>
       <div className='Main'>
         <Main />
       </div>
