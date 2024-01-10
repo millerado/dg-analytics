@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 // make a componet called InputPlayerNumber which creates a form with a text input
-function InputPlayerNumber() {
-  const [playerNumber, setPlayerNumber] = useState('');
+function InputPlayerNumber({ setPlayerID, playerID }) {
+  const [playerNumber, setPlayerNumber] = useState(`${playerID}`);
 
   const navigate = useNavigate();
 
@@ -13,6 +13,7 @@ function InputPlayerNumber() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setPlayerID(playerNumber);
     navigate(`/player/${playerNumber}`);
   };
 
