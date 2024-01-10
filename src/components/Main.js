@@ -1,14 +1,15 @@
 import { Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
+import Player from '../pages/Player';
+
 //make a react component which takes in a prop called playerID
 function Main(props) {
   return (
     <div className='Main'>
-      <header className='Main-header'>
-        <h3>Hello World</h3>
-        {/* <h2>{props.message}</h2> */}
-      </header>
+      <Routes>
+        <Route path='/' element={<Player />} />
+      </Routes>
     </div>
   );
 }
