@@ -6,20 +6,26 @@ import InputPlayerNumber from './InputPlayerNumber';
 
 function Main(props) {
   const [playerID, setPlayerID] = useState('');
-  const [tournamentsPlayed, setTournamentsPlayed] = useState([]);
+  const [playerInfo, setPlayerInfo] = useState({ tournaments: [], years: [] });
 
-  const getTournamentsPlayed = (playerID) => {
+  const getPlayerInfo = (playerID) => {
     try {
       fetch(`http://localhost:4000/player/${playerID}`)
         .then((res) => res.json())
-        .then((data) => setTournamentsPlayed(data));
+        .then((data) =>
+          setPlayerInfo({
+            ...playerInfo,
+            ['tournaments']: data.tournaments,
+            ['years']: data.years,
+          })
+        );
     } catch (error) {
       throw error;
     }
   };
 
   useEffect(() => {
-    getTournamentsPlayed(playerID);
+    getPlayerInfo(playerID);
   }, [playerID]);
 
   return (
@@ -31,7 +37,11 @@ function Main(props) {
         <Route
           path='/player/:id'
           element={
-            <Player playerID={playerID} tournamentsPlayed={tournamentsPlayed} />
+            <Player
+              playerID={playerID}
+              tournaments={playerInfo['tournaments']}
+              years={playerInfo['years']}
+            />
           }
         />
       </Routes>
@@ -40,9 +50,3 @@ function Main(props) {
 }
 
 export default Main;
-//this component will make a fetch request to the backend
-//the backend will use axios and cheeiro to scrape the PDGA website
-//the backend will return the data to the frontend
-//the frontend will display the data
-//the data will be a list of tournaments played by the player
-//each tournament will have a link to the tournament page
