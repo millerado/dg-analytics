@@ -10,9 +10,9 @@ function Main(props) {
   const [playerInfo, setPlayerInfo] = useState({ tournaments: [], years: [] });
   const [year, setYear] = useState('2023');
 
-  const getPlayerInfo = (playerID) => {
+  const getPlayerInfo = (playerID, year) => {
     try {
-      fetch(`http://localhost:4000/player/${playerID}`)
+      fetch(`http://localhost:4000/player/${playerID}/stats/${year}`)
         .then((res) => res.json())
         .then((data) =>
           setPlayerInfo({
@@ -21,29 +21,14 @@ function Main(props) {
             ['years']: data.years,
           })
         );
+      setYear(year);
     } catch (error) {
-      throw error;
-    }
-  };
-
-  const getTournamentsByYear = (playerID, year) => {
-    try {
-      fetch(`http://localhost:4000/player/${playerID}/stats/${year}`)
-        .then((res) => res.json())
-        .then((data) =>
-          setPlayerInfo({
-            ...playerInfo,
-            ['tournaments']: data,
-          })
-        );
-    } catch (error) {
-      throw error;
+      console.log(error);
     }
   };
 
   useEffect(() => {
-    getPlayerInfo(playerID);
-    getTournamentsByYear(playerID, year);
+    getPlayerInfo(playerID, year);
   }, [playerID, year]);
 
   return (
@@ -53,11 +38,7 @@ function Main(props) {
       </div>
       <h1>Player: {playerID}</h1>
       <div className='Years'>
-        <Years
-          playerID={playerID}
-          years={playerInfo['years']}
-          setYear={setYear}
-        />
+        <Years playerID={playerID} years={playerInfo.years} setYear={setYear} />
       </div>
       <Routes>
         <Route
