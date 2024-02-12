@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 // make a componet called InputPlayerNumber which creates a form with a text input
-function InputPlayerNumber({ setPlayerID, playerID }) {
+function InputPlayerNumber({ setPlayerID, playerID, setPlayerInfo }) {
   const [playerNumber, setPlayerNumber] = useState(`${playerID}`);
 
   const navigate = useNavigate();
@@ -14,6 +14,7 @@ function InputPlayerNumber({ setPlayerID, playerID }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     setPlayerID(playerNumber);
+    setPlayerInfo({ tournaments: [], years: [] });
     navigate(`/player/${playerNumber}`);
   };
 
