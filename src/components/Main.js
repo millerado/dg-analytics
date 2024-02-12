@@ -33,7 +33,11 @@ function Main(props) {
   return (
     <div className='Main'>
       <div className='InputPlayerNumber'>
-        <InputPlayerNumber setPlayerID={setPlayerID} playerID={playerID} />
+        <InputPlayerNumber
+          setPlayerID={setPlayerID}
+          playerID={playerID}
+          setPlayerInfo={setPlayerInfo}
+        />
       </div>
       <Routes>
         <Route
@@ -41,7 +45,6 @@ function Main(props) {
           element={
             <Player
               playerID={playerID}
-              // tournaments={playerInfo['tournaments']}
               playerInfo={playerInfo}
               setPlayerInfo={setPlayerInfo}
               year={year}
@@ -54,7 +57,6 @@ function Main(props) {
           element={
             <Player
               playerID={playerID}
-              // tournaments={playerInfo['tournaments']}
               playerInfo={playerInfo}
               setPlayerInfo={setPlayerInfo}
               year={year}
