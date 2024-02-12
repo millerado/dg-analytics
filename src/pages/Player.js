@@ -1,19 +1,27 @@
-import Ratings from '../components/Ratings';
+import Years from '../components/Years';
+import Tournaments from '../components/Tournaments';
 
-function Player({ playerID, tournaments, year }) {
-  return (
-    <div>
-      <h2>{year} Tournaments</h2>
-      <ul>
-        {tournaments.map((tournament) => (
-          <li key={tournament.href}>
-            <a href={`pdga.com${tournament.href}`}>{tournament.name}</a>
-            <Ratings tournament={tournament} />
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+function Player({ playerID, playerInfo, setPlayerInfo, year, setYear }) {
+  const loading = () => {
+    return <h2>Loading...</h2>;
+  };
+
+  const loaded = () => {
+    return (
+      <div className='PlayerInfo'>
+        <h1>Player: {playerID}</h1>
+        <Years
+          playerID={playerID}
+          playerInfo={playerInfo}
+          setYear={setYear}
+          setPlayerInfo={setPlayerInfo}
+        />
+        <Tournaments playerInfo={playerInfo} year={year} />
+      </div>
+    );
+  };
+
+  return playerInfo.years.length > 0 ? loaded() : loading();
 }
 
 export default Player;

@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 
 import Player from '../pages/Player';
 import InputPlayerNumber from './InputPlayerNumber';
-import Years from './Years';
 
 function Main(props) {
   const [playerID, setPlayerID] = useState('');
@@ -17,8 +16,8 @@ function Main(props) {
         .then((data) =>
           setPlayerInfo({
             ...playerInfo,
-            ['tournaments']: data.tournaments,
-            ['years']: data.years,
+            tournaments: data.tournaments,
+            years: data.years,
           })
         );
       setYear(year);
@@ -36,18 +35,17 @@ function Main(props) {
       <div className='InputPlayerNumber'>
         <InputPlayerNumber setPlayerID={setPlayerID} playerID={playerID} />
       </div>
-      <h1>Player: {playerID}</h1>
-      <div className='Years'>
-        <Years playerID={playerID} years={playerInfo.years} setYear={setYear} />
-      </div>
       <Routes>
         <Route
           path='/player/:id'
           element={
             <Player
               playerID={playerID}
-              tournaments={playerInfo['tournaments']}
+              // tournaments={playerInfo['tournaments']}
+              playerInfo={playerInfo}
+              setPlayerInfo={setPlayerInfo}
               year={year}
+              setYear={setYear}
             />
           }
         />
@@ -56,8 +54,11 @@ function Main(props) {
           element={
             <Player
               playerID={playerID}
-              tournaments={playerInfo['tournaments']}
+              // tournaments={playerInfo['tournaments']}
+              playerInfo={playerInfo}
+              setPlayerInfo={setPlayerInfo}
               year={year}
+              setYear={setYear}
             />
           }
         />

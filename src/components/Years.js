@@ -1,15 +1,23 @@
 import { Link } from 'react-router-dom';
 
-function Years({ playerID, years, setYear }) {
+function Years({ playerID, playerInfo, setYear, setPlayerInfo }) {
+  const handleClick = (year) => {
+    setYear(year);
+    setPlayerInfo({
+      ...playerInfo,
+      tournaments: [],
+    });
+  };
+
   return (
-    <div>
+    <div className='Years'>
       <h2>Years</h2>
       <ul>
-        {years.map((year) => (
+        {playerInfo.years.map((year) => (
           <li key={year}>
             <Link
               to={`http://localhost:3000/player/${playerID}/stats/${year}`}
-              onClick={() => setYear(year)}
+              onClick={() => handleClick(year)}
             >
               {year}
             </Link>
